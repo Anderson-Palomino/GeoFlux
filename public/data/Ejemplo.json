@@ -1,0 +1,34 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-77.026211, -11.883041]
+        },
+        "properties": {
+          "name": "Ejemplo"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [-77.026211, -11.883041],
+              [-77.027211, -11.883041],
+              [-77.027211, -11.882041],
+              [-77.026211, -11.882041],
+              [-77.026211, -11.883041]
+            ]
+          ]
+        },
+        "properties": {
+          "name": "Polígono de Ejemplo"
+        }
+      }
+    ]
+  }
+  

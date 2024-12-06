@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GeoFlux</title>
+  <link rel="stylesheet" href="/lib/ol-v10.2.1/ol.css"/>
+  <link rel="stylesheet" href="/lib/ol-ext/dist/ol-ext.css">
+  <script src="/lib/ol-v10.2.1/dist/ol.js"></script>
+  <script src="/lib/ol-ext/dist/ol-ext.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Barra de navegación -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">GeoFlux App</a>
+    </div>
+  </nav>
+
+  <div class="container my-5">
+    <h1 class="text-center mb-4">GeoFlux Mapas Dinamicos</h1>
+
+    <!-- Mapa -->
+    <div id="map" class="border rounded shadow mb-4"></div>
+
+    <!-- Posición del mouse -->
+    <div id="mouseposition" class="alert alert-secondary text-center" role="alert">
+      Mueve el cursor sobre el mapa para ver la posición.
+    </div>
+
+    <!-- Herramientas -->
+    <div id="tools" class="container mt-3">
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <button id="limpiar" class="btn btn-danger btn-lg">
+            <i class="fas fa-trash-alt"></i> Limpiar
+          </button>
+        </div>
+        <div class="col-auto">
+          <a id="descargar" class="btn btn-success btn-lg" download="features.json">
+            <i class="fas fa-download"></i> Descargar
+          </a>
+        </div>
+        <div class="col-auto">
+          <a id="punto" class="btn btn-info btn-lg text-white">
+            <i class="fas fa-map-marker-alt"></i> Punto
+          </a>
+        </div>
+        <div class="col-auto">
+          <a id="linea" class="btn btn-primary btn-lg">
+            <i class="fas fa-draw-polygon"></i> Línea
+          </a>
+        </div>
+        <div class="col-auto">
+          <a id="poligono" class="btn btn-warning btn-lg text-dark">
+            <i class="fas fa-shapes"></i> Polígono
+          </a>
+        </div>
+        <div class="col-auto">
+          <a id="modificar" class="btn btn-secondary btn-lg">
+            <i class="fas fa-edit"></i> Modificar
+          </a>
+        </div>
+        <div class="col-auto">
+          <a id="eliminar" class="btn btn-danger btn-lg">
+            <i class="fas fa-trash"></i> Eliminar
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script type="module" src="/js/VistaInicio.js"></script>
+  <script type="module" src="/js/ControlesBasicos.js"></script>
+  <script type="module" src="/js/ControlesInteraccion.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</body>
+
+</html>

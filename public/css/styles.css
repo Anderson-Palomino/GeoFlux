@@ -1,0 +1,123 @@
+/* General */
+body {
+  font-family: 'Roboto', Arial, sans-serif; /* Fuente moderna */
+  background-color: #f8f9fa; /* Fondo claro */
+  color: #343a40; /* Texto oscuro */
+}
+
+/* Mapa */
+#map {
+  height: 500px; /* Altura fija para el mapa */
+  width: 100%;
+  background-color: #e9ecef; /* Fondo gris claro */
+  border: 2px solid #dee2e6; /* Borde gris claro */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para destacar */
+}
+
+.proy-ol-full-screen {
+  left: 0.5em;
+  top: 4.5em;
+}
+
+.proy-ol-zoom-extent {
+  top: 5.943em;
+  left: 0.5em;
+}
+
+.rotacion-norte {
+  top: 7.4em;
+  left: 0.5em;
+}
+
+.ol-touch .rotacion-norte {
+  top: 7.4em;
+  left: 0.5em;
+}
+
+.posicion-actual {
+  top: 8.85em;
+  left: 0.5em;
+}
+
+.ol-touch .posicion-actual {
+  top: 7.4em;
+  left: 0.5em;
+}
+
+/* Posición del mouse */
+#mouseposition {
+  font-size: 1.1rem; /* Tamaño de texto cómodo */
+  padding: 10px 15px;
+  background-color: #ffffff; /* Fondo blanco */
+  border: 1px solid #dee2e6; /* Borde gris claro */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  border-radius: 0.375rem; /* Bordes redondeados */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Transición para hover */
+}
+
+#mouseposition:hover {
+  background-color: #f1f1f1; /* Fondo ligeramente más oscuro */
+  transform: scale(1.02); /* Efecto de escala */
+}
+
+/* Herramientas */
+#tools {
+  margin-top: 20px;
+}
+
+#limpiar, #descargar {
+  transition: all 0.3s ease; /* Transición suave para hover */
+}
+
+#limpiar:hover {
+  background-color: #c82333; /* Rojo más oscuro */
+  color: #fff; /* Texto blanco */
+  transform: scale(1.05); /* Efecto de escala */
+}
+
+#descargar:hover {
+  background-color: #0056b3; /* Azul más oscuro */
+  color: #fff; /* Texto blanco */
+  transform: scale(1.05); /* Efecto de escala */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  #map {
+    height: 400px; /* Reducir tamaño en pantallas pequeñas */
+  }
+
+  #mouseposition {
+    font-size: 1rem; /* Ajustar tamaño de texto */
+  }
+
+  #limpiar, #descargar {
+    font-size: 1rem; /* Botones más pequeños */
+    padding: 10px 20px;
+  }
+}
+
+/* Encabezado */
+h1 {
+  font-weight: bold;
+  color: #007bff; /* Azul principal de Bootstrap */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+/* Estilo de bordes y sombras */
+.border {
+  border: 2px solid #dee2e6; /* Grosor y color del borde */
+}
+
+.rounded {
+  border-radius: 0.5rem; /* Bordes redondeados */
+}
+
+.shadow {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
+}
+
+/* Accesibilidad */
+#mouseposition {
+  color: #212529; /* Texto más oscuro para mayor contraste */
+}
