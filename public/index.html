@@ -93,6 +93,15 @@
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script type="module">
+    import { promptForAttribute } from './js/Estilos.js';
+
+    document.getElementById('uploadGeoJSON').addEventListener('change', function() {
+      const attributeName = promptForAttribute();
+      // Pass attributeName to your map rendering logic
+      // Example: map.setStyle(estilos(feature, attributeName));
+    });
+  </script>
 
 </body>
 

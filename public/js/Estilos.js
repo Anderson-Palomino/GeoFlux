@@ -117,5 +117,9 @@ function getStlEcosistemas(feature){
   return stlEcosistemas;
 }
 
+export function promptForAttribute() {
+  // Function implementation
+}
+
 // Exporta la función
 export { getStlEcosistemas, estilos };

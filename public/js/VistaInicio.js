@@ -3,7 +3,7 @@ import { getStlEcosistemas, estilos } from "./Estilos.js";
 import PosicionActual from "./PosicionActual.js";
 import { geolocation, configurarEventos } from "./GeoLocation.js";
 import { baseLayer } from "./CapasBase.js";
-import { srcEcosistemas, control_busqueda,i_select } from "./ControlBusqueda.js";
+import { srcEcosistemas, control_busqueda, i_select } from "./ControlBusqueda.js";
 
 const map = new ol.Map({
   controls: ol.control.defaults
@@ -12,7 +12,6 @@ const map = new ol.Map({
       zoomOptions: { zoomInTipLabel: "Acercar", zoomOutTipLabel: "Alejar" },
     })
     .extend([new RotacionNorte()]),
-  // controls: ol.control.defaults.defaults().extend([new RotacionNorte()]),
   target: "map",
   layers: [
     baseLayer,
@@ -21,76 +20,14 @@ const map = new ol.Map({
         url: "data/ANP.geojson",
         format: new ol.format.GeoJSON(),
       }),
-      
-      title:"Areas Naturales Protegidas",
+      title: "Areas Naturales Protegidas",
       style: estilos,
     }),
-
-    // new ol.layer.Vector({
-    //   source: srcEcosistemas,
-    //   title:"Ecosistemas",
-    //   style: getStlEcosistemas,
-    // }),
-
     new ol.layer.Vector({
       source: new ol.source.Vector({
         url: "data/features.json",
         format: new ol.format.GeoJSON(),
       }),
-      // style: new ol.style.Style({
-      //   stroke: new ol.style.Stroke({
-      //     color: "orange",
-      //     width: 3,
-      //     // lineCap: "square",
-      //     // lineJoin: "miter",
-      //     //valor, espacio, valor, espacio
-      //     lineDash: [15, 10, 1, 10],
-      //   }),
-      //   fill: new ol.style.Fill({
-      //     color: "rgba(255, 165, 0, 0.3)",
-      //   }),
-      //   // image: new ol.style.Circle({
-      //   //   stroke: new ol.style.Stroke({
-      //   //     color:"orange",
-      //   //     width: 3,
-      //   //   }),
-      //   //   radius: 8,
-      //   //   fill: new ol.style.Fill({
-      //   //     color: "rgba(255, 165, 0, 0.3)",
-      //   //   }),
-      //   // }),
-      //   // image: new ol.style.RegularShape({
-      //   //   points:4,
-      //   //   radius:8,
-      //   //   stroke: new ol.style.Stroke({
-      //   //     //colores de los puntos
-      //   //     color:"#218ddc",
-      //   //     width: 3,
-      //   //   }),
-      //   //   fill: new ol.style.Fill({
-      //   //     color: "rgba(255, 165, 0, 0.3)",
-      //   //   }),
-      //   //   rotation: 45,
-      //   // })
-      //   image: new ol.style.Icon({
-      //     src: "img/icon/arbol.png",
-      //     // color: "#5adc21"
-      //   }),
-
-      //   text: new ol.style.Text({
-      //     text: "Objeto",
-      //     offsetY: 20,
-      //     scala: 1.5,
-      //     stroke: new ol.style.Stroke({
-      //       //colores de los puntos
-      //       color: "#218ddc",
-      //       width: 4,
-      //     }),
-      //     fill: new ol.style.Fill({
-      //       color: "#020500",
-      //     }),
-      //   }),
-      // }),
       style: estilos,
       title: "Features",
       baseLayer: false,
@@ -99,10 +36,7 @@ const map = new ol.Map({
   ],
   view: new ol.View({
     center: new ol.proj.fromLonLat([-77.026211, -11.883041]),
-    // center: [-8574529.390430272, -1332463.4945135845],
     zoom: 14,
-    // minZoom: 12,
-    // maxZoom: 17,
   }),
 });
 
@@ -120,7 +54,6 @@ layerSwitcher.on("drawlist", function (e) {
 
   const layer = e.layer;
 
-  // Crear el botón y agregar funcionalidad de clic
   $('<div>')
     .text("?")
     .on("click", function () {
@@ -146,15 +79,19 @@ control_busqueda.on("select", function (e) {
   i_select.getFeatures().push(e.search);
 
   const p = e.search.getGeometry().getFirstCoordinate();
-  map.getView().animate({zoom:15,center:p});
+  map.getView().animate({ zoom: 15, center: p });
 });
 
-document.getElementById('uploadGeoJSON').addEventListener('change', function(event) {
+document.getElementById('uploadGeoJSON').addEventListener('change', function (event) {
   const file = event.target.files[0];
   if (file) {
     const reader = new FileReader();
-    reader.onload = function(e) {
+    reader.onload = function (e) {
       const geojson = e.target.result;
+
+      const attributeName = prompt("Ingrese el nombre del atributo para los títulos de los multipolígonos:");
+      const layerName = prompt("Ingrese el nombre de la capa:");
+
       const vectorSource = new ol.source.Vector({
         features: new ol.format.GeoJSON().readFeatures(geojson, {
           featureProjection: map.getView().getProjection()
@@ -162,12 +99,78 @@ document.getElementById('uploadGeoJSON').addEventListener('change', function(eve
       });
       const vectorLayer = new ol.layer.Vector({
         source: vectorSource,
-        style: estilos
+        style: function (feature) {
+          return new ol.style.Style({
+            stroke: new ol.style.Stroke({
+              color: 'orange',
+              width: 3
+            }),
+            fill: new ol.style.Fill({
+              color: 'rgba(255, 165, 0, 0.3)'
+            }),
+            text: new ol.style.Text({
+              text: feature.get(attributeName),
+              offsetY: 20,
+              scale: 1.5,
+              stroke: new ol.style.Stroke({
+                color: '#218ddc',
+                width: 4
+              }),
+              fill: new ol.style.Fill({
+                color: '#020500'
+              })
+            })
+          });
+        }
       });
+      vectorLayer.set('title', layerName);
       map.addLayer(vectorLayer);
+
+      localStorage.setItem('uploadedGeoJSON', geojson);
+      localStorage.setItem('attributeName', attributeName);
+      localStorage.setItem('layerName', layerName);
     };
     reader.readAsText(file);
   }
 });
+
+const savedGeoJSON = localStorage.getItem('uploadedGeoJSON');
+const savedAttributeName = localStorage.getItem('attributeName');
+const savedLayerName = localStorage.getItem('layerName');
+if (savedGeoJSON && savedAttributeName && savedLayerName) {
+  const vectorSource = new ol.source.Vector({
+    features: new ol.format.GeoJSON().readFeatures(savedGeoJSON, {
+      featureProjection: map.getView().getProjection()
+    })
+  });
+  const vectorLayer = new ol.layer.Vector({
+    source: vectorSource,
+    style: function (feature) {
+      return new ol.style.Style({
+        stroke: new ol.style.Stroke({
+          color: 'orange',
+          width: 3
+        }),
+        fill: new ol.style.Fill({
+          color: 'rgba(255, 165, 0, 0.3)'
+        }),
+        text: new ol.style.Text({
+          text: feature.get(savedAttributeName),
+          offsetY: 20,
+          scale: 1.5,
+          stroke: new ol.style.Stroke({
+            color: '#218ddc',
+            width: 4
+          }),
+          fill: new ol.style.Fill({
+            color: '#020500'
+          })
+        })
+      });
+    }
+  });
+  vectorLayer.set('title', savedLayerName);
+  map.addLayer(vectorLayer);
+}
 
 export { map };
