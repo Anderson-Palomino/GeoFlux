@@ -26,11 +26,11 @@ const map = new ol.Map({
       style: estilos,
     }),
 
-    new ol.layer.Vector({
-      source: srcEcosistemas,
-      title:"Ecosistemas",
-      style: getStlEcosistemas,
-    }),
+    // new ol.layer.Vector({
+    //   source: srcEcosistemas,
+    //   title:"Ecosistemas",
+    //   style: getStlEcosistemas,
+    // }),
 
     new ol.layer.Vector({
       source: new ol.source.Vector({
@@ -149,5 +149,25 @@ control_busqueda.on("select", function (e) {
   map.getView().animate({zoom:15,center:p});
 });
 
+document.getElementById('uploadGeoJSON').addEventListener('change', function(event) {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const geojson = e.target.result;
+      const vectorSource = new ol.source.Vector({
+        features: new ol.format.GeoJSON().readFeatures(geojson, {
+          featureProjection: map.getView().getProjection()
+        })
+      });
+      const vectorLayer = new ol.layer.Vector({
+        source: vectorSource,
+        style: estilos
+      });
+      map.addLayer(vectorLayer);
+    };
+    reader.readAsText(file);
+  }
+});
 
 export { map };
