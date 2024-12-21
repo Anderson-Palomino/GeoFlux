@@ -3,7 +3,7 @@ const path = require('path');
 const mainRouter = require('./routes/main');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Servir archivos estáticos
 app.use(express.static(path.join(__dirname, 'public')));
