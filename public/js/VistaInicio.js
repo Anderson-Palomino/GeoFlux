@@ -33,6 +33,31 @@ const map = new ol.Map({
       baseLayer: false,
       visible: true,
     }),
+    new ol.layer.Tile({
+      source: new ol.source.TileWMS({
+        attributions: "@geoserver",
+        url: "http://localhost:8080/geoserver/wms?",
+        params: {
+          LAYERS: "Departamentos:departamentos",
+          TILED: true,
+        },
+      }),
+      visible: false,
+      title: "Departamentos",
+    }),
+    
+    new ol.layer.Tile({
+      source: new ol.source.TileWMS({
+        attributions: "@geoserver",
+        url: "http://localhost:8080/geoserver/wms?",
+        params: {
+          LAYERS: "CoberturaVegetal:cobveg_180615",
+          TILED: true,
+        },
+      }),
+      visible: false,
+      title: "Cobertura Vegetal",
+    }),
   ],
   view: new ol.View({
     center: new ol.proj.fromLonLat([-77.026211, -11.883041]),
