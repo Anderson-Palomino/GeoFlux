@@ -36,7 +36,7 @@ const map = new ol.Map({
     new ol.layer.Tile({
       source: new ol.source.TileWMS({
         attributions: "@geoserver",
-        url: "http://208.67.222.222/geoserver/wms?",
+        url: "http://192.168.1.58:8080/geoserver/wms?",
         params: {
           LAYERS: "Departamentos:departamentos",
           TILED: true,
@@ -49,7 +49,7 @@ const map = new ol.Map({
     new ol.layer.Tile({
       source: new ol.source.TileWMS({
         attributions: "@geoserver",
-        url: "http://208.67.222.222/geoserver/wms?",
+        url: "http://192.168.1.58:8080/geoserver/wms?",
         params: {
           LAYERS: "CoberturaVegetal:cobveg_180615",
           TILED: true,
